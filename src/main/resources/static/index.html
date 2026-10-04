@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SINAN - Gerenciamento de notificações</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><h1>SINAN</h1><p>Gerenciamento de notificações de agravos</p></header>
+<main>
+  <section class="painel">
+    <h2 id="titulo-form">Cadastrar notificação</h2>
+    <form id="form-notificacao">
+      <input type="hidden" id="id">
+      <div class="grid">
+        <label>Agravo/doença *<input id="agravo" required maxlength="120"></label>
+        <label>Código CID-10<input id="cid10" maxlength="12"></label>
+        <label>Data da notificação *<input id="dataNotificacao" type="date" required></label>
+        <label>Data dos primeiros sintomas<input id="dataPrimeirosSintomas" type="date"></label>
+        <label>Nome do paciente *<input id="nomePaciente" required maxlength="160"></label>
+        <label>Data de nascimento<input id="dataNascimento" type="date"></label>
+        <label>Idade<input id="idadeValor" type="number" min="0"></label>
+        <label>Unidade da idade
+          <select id="idadeUnidade"><option value="">Selecione</option><option>HORA</option><option>DIA</option><option>MES</option><option>ANO</option></select>
+        </label>
+        <label>Sexo *
+          <select id="sexo" required><option value="">Selecione</option><option value="M">Masculino</option><option value="F">Feminino</option><option value="I">Ignorado</option></select>
+        </label>
+        <label>Gestante *
+          <select id="gestante" required><option value="">Selecione</option><option value="1_TRI">1º trimestre</option><option value="2_TRI">2º trimestre</option><option value="3_TRI">3º trimestre</option><option value="IG_IGNORADA">Idade gestacional ignorada</option><option value="NAO">Não</option><option value="NAO_SE_APLICA">Não se aplica</option><option value="IGNORADO">Ignorado</option></select>
+        </label>
+        <label>Nome da mãe<input id="nomeMae" maxlength="160"></label>
+        <label>Reside no Brasil *
+          <select id="resideBrasil" required><option value="true">Sim</option><option value="false">Não</option></select>
+        </label>
+        <label>UF de residência<input id="ufResidencia" maxlength="2" placeholder="PB"></label>
+        <label>Município de residência<input id="municipioResidencia"></label>
+        <label>País de residência<input id="paisResidencia" value="Brasil"></label>
+      </div>
+      <label>Observações<textarea id="observacoes" rows="3" maxlength="1000"></textarea></label>
+      <div class="acoes"><button type="submit">Salvar</button><button type="button" class="secundario" id="limpar">Limpar</button></div>
+      <p id="mensagem" role="status"></p>
+    </form>
+  </section>
+
+  <section class="painel">
+    <h2>Consultar notificações</h2>
+    <div class="grid filtros">
+      <label>Agravo<input id="f-agravo" placeholder="Ex.: Dengue"></label>
+      <label>Paciente<input id="f-paciente" placeholder="Nome do paciente"></label>
+      <label>UF<input id="f-uf" maxlength="2" placeholder="PB"></label>
+      <label>Data inicial<input id="f-inicio" type="date"></label>
+      <label>Data final<input id="f-fim" type="date"></label>
+      <label class="check"><input id="f-duplicadas" type="checkbox"> Somente duplicadas</label>
+    </div>
+    <div class="acoes"><button id="buscar">Buscar</button></div>
+    <div class="tabela-wrap">
+      <table>
+        <thead><tr>
+          <th><button class="ordem" data-sort="id">ID</button></th>
+          <th><button class="ordem" data-sort="agravo">Agravo</button></th>
+          <th><button class="ordem" data-sort="nomePaciente">Paciente</button></th>
+          <th><button class="ordem" data-sort="dataNotificacao">Notificação</button></th>
+          <th>Nascimento</th><th>UF</th><th>Ações</th>
+        </tr></thead>
+        <tbody id="lista"></tbody>
+      </table>
+    </div>
+    <div class="paginacao"><button id="anterior" class="secundario">Anterior</button><span id="pagina-atual">Página 1</span><button id="proxima" class="secundario">Próxima</button></div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
